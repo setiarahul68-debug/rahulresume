@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahul Setia | Founder & Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111;
+    --surface2: #161616;
+    --border: #222;
+    --text: #f0ede8;
+    --muted: #888;
+    --accent: #e8d5a3;
+    --accent2: #c9a96e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 20%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,213,163,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text {
+    animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent2);
+  }
+
+  .hero-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 6vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+
+  .hero-text h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero-tagline {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 380px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 13px 28px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 13px 28px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--muted);
+    transform: translateY(-1px);
+  }
+
+
+
+  /* SECTIONS */
+  section {
+    padding: 100px 60px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--accent2);
+  }
+
+  section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 60px;
+    line-height: 1.05;
+  }
+
+  /* ABOUT */
+  #about {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: #bbb;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .stat-box {
+    background: var(--bg);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+  }
+
+  .stat-box:first-child { border-radius: 4px 0 0 0; }
+  .stat-box:nth-child(2) { border-radius: 0 4px 0 0; }
+  .stat-box:nth-child(3) { border-radius: 0 0 0 4px; }
+  .stat-box:last-child { border-radius: 0 0 4px 0; }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .project-card:first-child { border-radius: 4px 0 0 0; }
+  .project-card:nth-child(2) { border-radius: 0 4px 0 0; }
+  .project-card:nth-child(3) { border-radius: 0 0 0 4px; }
+  .project-card:last-child { border-radius: 0 0 4px 0; }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,213,163,0.04), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover { background: #161616; }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+  }
+
+  .project-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+
+  .project-card p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  .project-tag {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 4px 10px;
+    background: rgba(232,213,163,0.08);
+    color: var(--accent2);
+    border-radius: 3px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* EXPERIENCE */
+  #experience {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .exp-card:last-child { border-bottom: none; }
+
+  .exp-meta {
+    color: var(--muted);
+    font-size: 13px;
+    padding-top: 4px;
+  }
+
+  .exp-meta strong {
+    display: block;
+    color: var(--accent2);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .exp-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
+
+  .exp-content p {
+    font-size: 15px;
+    color: #999;
+    line-height: 1.7;
+  }
+
+  /* ACHIEVEMENTS */
+  .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .achievement-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: background 0.2s;
+  }
+
+  .achievement-item:first-child { border-radius: 4px 4px 0 0; }
+  .achievement-item:last-child { border-radius: 0 0 4px 4px; }
+  .achievement-item:hover { background: var(--surface2); }
+
+  .achievement-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .achievement-text strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .achievement-text span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* SKILLS */
+  #skills {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-pill {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .skill-pill:hover {
+    border-color: var(--accent2);
+    color: var(--accent);
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-text p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  .contact-link-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    min-width: 60px;
+  }
+
+  .contact-link-val {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .contact-link:hover .contact-link-val {
+    border-color: var(--accent2);
+  }
+
+  .contact-right {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 50px 44px;
+  }
+
+  .contact-right h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .contact-right p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .contact-right .btn-primary {
+    display: block;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    nav ul { gap: 18px; }
+
+    .hero {
+      padding: 120px 24px 60px;
+      text-align: center;
+      min-height: auto;
+    }
+
+    .hero-eyebrow, .hero-tagline { margin-left: auto; margin-right: auto; }
+    .hero-ctas { justify-content: center; }
+
+    section { padding: 70px 24px; }
+    .about-grid, .projects-grid, .contact-inner { grid-template-columns: 1fr; }
+    .projects-grid { gap: 2px; }
+    .project-card { border-radius: 0 !important; }
+    .exp-card { grid-template-columns: 1fr; gap: 10px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">RS</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Founder & Builder</div>
+    <h1>Rahul<br><em>Setia</em></h1>
+    <p class="hero-tagline">I build businesses, not just ideas — at the intersection of strategy, execution, and growth.</p>
+    <div class="hero-ctas">
+      <a href="mailto:rahul_setia@ug26.mesaschool.co" class="btn-primary">Get in Touch</a>
+      <a href="https://linkedin.com" class="btn-outline" target="_blank">LinkedIn ↗</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2>Builder.<br>Operator.</h2>
+      <p>I'm a business builder currently pursuing entrepreneurship at Mesa School of Business and IIM Bangalore.</p>
+      <p>From launching a D2C honey brand to building AI-driven products, I thrive at the intersection of strategy, execution, and growth.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-box">
+        <div class="stat-number">₹1.5L</div>
+        <div class="stat-label">Revenue in 4 weeks</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">5%</div>
+        <div class="stat-label">Conversion rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">Top 4</div>
+        <div class="stat-label">of 1200+ at Replit × OpenAI</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Ventures built</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label reveal">Selected Work</div>
+  <h2 class="reveal">Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-number">01</div>
+      <h3>Waggle Bees</h3>
+      <p>Built a D2C honey brand from 0→1, generating ₹1.5L in 4 weeks using Meta ads, flea markets, and organic growth strategies.</p>
+      <span class="project-tag">D2C · Brand</span>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-number">02</div>
+      <h3>InsightIQ</h3>
+      <p>Developed an AI agent that extracts real consumer insights from Reddit & Amazon using large language models for deep market intelligence.</p>
+      <span class="project-tag">AI · LLM</span>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-number">03</div>
+      <h3>Radius</h3>
+      <p>Co-founded a Generative Engine Optimization platform helping brands rank in AI search — the next frontier of digital visibility.</p>
+      <span class="project-tag">GEO · AI Search</span>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-number">04</div>
+      <h3>Blue Tokai GTM Strategy</h3>
+      <p>Designed a fitness-focused expansion strategy targeting premium wellness consumers for the specialty coffee brand.</p>
+      <span class="project-tag">Strategy · GTM</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">Work History</div>
+  <h2 class="reveal">Experience</h2>
+  <div class="exp-card reveal">
+    <div class="exp-meta">
+      <strong>Finance</strong>
+      BlueStone Wealth
+    </div>
+    <div class="exp-content">
+      <h3>Business Development</h3>
+      <p>Acquired high-value SIP clients and achieved a 5% conversion rate through targeted, relationship-driven outreach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label reveal">Recognition</div>
+  <h2 class="reveal">Achievements</h2>
+  <div class="achievements-list">
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🏆</div>
+      <div class="achievement-text">
+        <strong>Replit × OpenAI Hackathon</strong>
+        <span>Top 4 out of 1200+ participants</span>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🏆</div>
+      <div class="achievement-text">
+        <strong>Emergent AI Hackathon — IIT Delhi</strong>
+        <span>Top 5 out of 500+ participants</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">Toolkit</div>
+  <h2 class="reveal">Skills</h2>
+  <div class="skills-grid reveal">
+    <span class="skill-pill">Sales & GTM</span>
+    <span class="skill-pill">Operations</span>
+    <span class="skill-pill">Leadership</span>
+    <span class="skill-pill">N8N Automation</span>
+    <span class="skill-pill">Cursor</span>
+    <span class="skill-pill">AI Product Building</span>
+    <span class="skill-pill">Brand Strategy</span>
+    <span class="skill-pill">Consumer Insights</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-text reveal">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let's Build Something</h2>
+      <p>Whether you're looking to collaborate, invest, or just have an interesting conversation about building businesses — my inbox is open.</p>
+      <div class="contact-links">
+        <a href="mailto:rahul_setia@ug26.mesaschool.co" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-val">rahul_setia@ug26.mesaschool.co</span>
+        </a>
+        <a href="tel:+916284684797" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-val">+91 6284 684797</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <h3>Ready to connect?</h3>
+      <p>Drop me an email and I'll get back to you.</p>
+      <a href="mailto:rahul_setia@ug26.mesaschool.co" class="btn-primary">Say Hello →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Rahul Setia</span>
+  <span>Builder. Operator. Aspiring Founder.</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
